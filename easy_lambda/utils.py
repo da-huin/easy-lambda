@@ -7,9 +7,7 @@ import time
 
 class Utils():    
     def get_set_environ_command(self):
-        """
-        환경변수를 세팅할 때 사용하는 명령어를 가져온다.
-        """
+
         if self.is_windows():
             set_environ_command = "SET"
         else:
@@ -17,17 +15,12 @@ class Utils():
         return set_environ_command
 
     def get_os(self):
-        """
-        platform.system() 과 같음
-        """
+
         return platform.system()
 
     def is_windows(self):
-        """
-        현재 사용하는 OS가 Windows 인지 확인한다.
-        """
-        return self.get_os() == "Windows"
 
+        return self.get_os() == "Windows"
 
     def get_unique_service_path(self, service_base_path, service_name):
         service_path = ""
@@ -37,11 +30,11 @@ class Utils():
                 break
 
         if service_path == "":
-            raise ValueError(f"{service_base_path} {service_name}, 서비스를 찾지 못했습니다.")
+            raise ValueError(f"service Could be found in {service_base_path}/{service_name}")
 
         result = service_path.replace("\\", "/")
         if len(result.split("/")) == 1:
-            raise ValueError(f"invalid service {service_name}")
+            raise ValueError(f"Invalid service {service_name}")
 
         return result
 
@@ -56,7 +49,7 @@ class Utils():
             command = "&&".join(command)
 
         result = ""
-        print("[명령어] " + command)
+        # print("[Command] " + command)
 
         process = subprocess.Popen(
             command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -113,14 +106,12 @@ class Utils():
                         with open(to_file_path, "wb") as fp:
                             fp.write(readed)
 
-                    except Exception as e:
-                        print(f"삭제 재시도 중입니다. . . {e}")
+                    except:
                         time.sleep(1)
                     else:
                         break
                 copyed_file_paths.append(to_file_path)
         
-
         all_to_file_path = []
         for dirpath, _, filenames in os.walk(to_base_dir):
             for filename in filenames:
@@ -132,8 +123,7 @@ class Utils():
             while True:
                 try:
                     os.unlink(file_path)
-                except Exception as e:
-                    print(f"삭제 재시도 중입니다. . . {e}")
+                except:
                     time.sleep(1)
                 else:
                     break

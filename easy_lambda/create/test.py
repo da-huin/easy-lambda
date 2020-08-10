@@ -1,11 +1,12 @@
 import json
 from pprint import pprint
 import app
-import validator_collection
 
 def test():
     result = app.main({})
-    
+
+
+    print("\nTest Result:")
     pprint(result)
     assert result["statusCode"] == 200
 

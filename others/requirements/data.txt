@@ -1,6 +1,0 @@
-fastparquet
-pandas
-packaging
-requests
-bs4
-lxml
