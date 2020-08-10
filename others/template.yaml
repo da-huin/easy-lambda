@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "{{Description}}"
+
+Globals:
+  Function:
+    Timeout: 300
+
+Resources:
+  "{{FunctionName}}":
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "{{FunctionName}}"
+      CodeUri: "{{CodeUri}}"
+      Handler: app.main
+      Runtime: python3.7
+      Environment:
+        Variables:
+      Layers:
+        - "{{CommonLayerArn}}"

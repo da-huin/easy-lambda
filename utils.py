@@ -3,6 +3,7 @@ import platform
 import os
 import subprocess
 import threading
+import time
 
 class Utils():    
     def get_set_environ_command(self):

@@ -107,14 +107,14 @@ class AWSLambda():
         print("Layer 를 배포했습니다.")
 
     def get_template_path(self):
-        return self._utils.get_path("resources_aws_lambda") + "/others/template.yaml"
+        return f"{os.path.abspath(os.path.dirname(__file__))}/others/template.yaml"
 
     def get_requirements_path(self):
         return self._utils.get_path("resources_aws_lambda") + "/others/requirements"
 
     def get_temp_path(self):
-        path = self._utils.get_path("resources_temp") + "/aws_lambda"
-        self._utils.mkdir(path)
+        path = "/tmp/lambda_layers"
+        os.makedirs(path, exist_ok=True)
         return path
 
     def get_create_path(self):

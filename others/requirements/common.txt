@@ -1,0 +1,12 @@
+requests
+jsonschema
+pyyaml
+pyjwt
+boto3
+validator_collection
+cryptography
+bs4
+paramiko
+cffi
+setuptools
+pymysql
