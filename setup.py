@@ -29,5 +29,4 @@ setup(name='easy_lambda',
       classifiers=[
           'Programming Language :: Python :: 3',
       ],
-      include_package_data=True
-      )
+      include_package_data=True)

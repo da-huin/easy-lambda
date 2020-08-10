@@ -15,6 +15,33 @@ from pyzip import PyZip
 
 
 class AWSLambda():
+    """
+    AWS Lambda와 Lambda Layer를 쉽게 배포하고 테스트 할 수 있게 도와주는 패키지입니다.
+
+    **Parameters**
+
+    * bucket_name: str
+        S3 BUCKET NAME
+
+    * services_dir: str
+        람다 함수들을 저장 할 디렉토리입니다.
+
+    * app_layers_path: str
+        람다 함수들에 공통적으로 배포 할 코드들의 경로입니다.
+
+    * environ: dict (default: {})
+        람다 함수에 배포할 환경변수 입니다.
+
+    * slack_url: str (default: "")
+        오류가 발생하면 슬랙으로 알려줍니다.
+
+    * aws_access_key_id: str (default: None)
+    * aws_secret_access_key: str (default: None)
+    * region_name: str (default: None)
+    * stack_prefix: str (default: str)
+        Prefix of AWS CloudFormation Stack
+
+    """
     def __init__(self, bucket_name, services_dir, app_layers_path="", environ={}, 
                     slack_url="", aws_access_key_id=None, aws_secret_access_key=None, region_name=None, stack_prefix="E"):
 
@@ -51,6 +78,19 @@ class AWSLambda():
             self._environ["SLACK_URL"] = slack_url
 
     def deploy(self, service_name, layer_name):
+        """
+        * `(required) service_name`: str
+
+            배포 할 람다 함수의 이름입니다.
+
+        * `(required) layer_name`: str
+
+            람다 함수에 적용 할 람다 레이어의 이름입니다. deploy_layer 에서 정한 레이어의 이름을 사용하세요.
+
+        **Returns**
+
+        * `None`
+        """
 
         self._deploy_app_layers(service_name)
 
@@ -67,6 +107,27 @@ class AWSLambda():
         print(time.time() - start)
 
     def create(self, service_name, base_dir=""):
+        """
+        람다 함수를 생성 할 때 사용하세요.
+
+        **Parameters**
+
+        * `(required) service_name`: str
+
+            람다 함수의 이름입니다.
+
+        * `base_dir`: str (default = "")
+
+            람다 함수의 기본 경로입니다. 아래와 같이 적용됩니다.
+
+            ```
+            services_dir/base_dir/service_name
+            ```
+
+        **Returns**
+
+        * `None`        
+        """
         print(f"Creating {service_name} service ...")
 
         try:
@@ -90,6 +151,15 @@ class AWSLambda():
 
 
     def test(self, service_name, pytest=False):
+        """
+        * `(required) service_name`: str
+
+            테스트 할 람다 함수의 이름입니다.
+
+        * `pytest`: bool (default=False)
+
+            pytest 로 테스트 할 것인지 여부입니다.        
+        """
         self._deploy_app_layers(service_name)
 
         start = time.time()
@@ -108,6 +178,19 @@ class AWSLambda():
         print("Running Time: ", time.time() - start)
 
     def deploy_layer(self, layer_name: str, requirements: list):
+        """
+        * `(required) layer_name`: str
+
+            배포 할 람다 레이어의 이름입니다.
+
+        * `(required) requirements`: list
+
+            레이어에 사용 할 패키지 이름들입니다.
+
+        **Returns**
+
+        * `None`        
+        """
         print("Deploying lambda layer ...")
 
         requirements.append("requests")
