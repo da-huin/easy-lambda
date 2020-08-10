@@ -57,10 +57,14 @@ pip install easy_lambda
 
 ### Prerequisites 
 
-1. SAM 설치
+1. AWS CLI 와 SAM 을 설치합니다. Lambda 등 AWS 를 사용하는 작업에는 이 기능이 필요합니다.
 
-1. AWS-CLI 설치 후 인증
-
+    * https://aws.amazon.com/ko/cli/
+    * https://aws.amazon.com/ko/serverless/sam/
+    * 설치 후 아래의 명령어를 이용해 인증을 설정합니다.
+    ```bash
+    aws configure
+    ```
 
 ### Tutorial
 
