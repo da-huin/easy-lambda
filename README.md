@@ -66,7 +66,7 @@ pip install easy_lambda
     aws configure
     ```
 
-### Tutorial
+### 🚀 Tutorial
 
 #### 1. 람다 함수들을 저장 할 폴더 만들기
 
